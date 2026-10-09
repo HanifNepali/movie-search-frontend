@@ -1,6 +1,6 @@
 import { TrendingGrid } from "~/components/TrendingGrid";
 import { searchMovies } from "~/lib/api";
-import { Pagination } from "../Shared";
+import { EmptyState, Pagination } from "../Shared";
 
 export interface SearchResultsProps {
   query: string;
@@ -16,19 +16,21 @@ export async function SearchResults({ query, page }: SearchResultsProps) {
         {totalResults} results for &ldquo;{query}&rdquo;
       </h2>
 
-      {results.length > 0 ? (
+      {/* Show empty state if no results are found */}
+      {results.length === 0 ? (
+        <EmptyState>
+          <EmptyState.Title>Sorry, no movies found</EmptyState.Title>
+          <EmptyState.Description>
+            Nothing matched &ldquo;{query}&rdquo;. Please check the spelling or
+            try a different title.
+          </EmptyState.Description>
+        </EmptyState>
+      ) : (
         <div className="min-h-148">
           <TrendingGrid movies={results} />
         </div>
-      ) : (
-        <>
-          <h3>Sorry, no movies found</h3>
-          <p>
-            Nothing matched &ldquo;{query}&rdquo;. Please check the spelling or
-            try a different title.
-          </p>
-        </>
       )}
+
       <Pagination
         query={query}
         page={page}

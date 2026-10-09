@@ -23,7 +23,7 @@ export default function MovieError({
     <main className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-10">
       <div role="alert" className="flex flex-col items-start gap-3">
         <h1 className="text-2xl font-semibold text-foreground">
-          Couldn&apos;t load this movie
+          Sorry, could not load this movie
         </h1>
         <p className="text-sm text-muted">
           The movie API might be slow or unreachable. You can try again.

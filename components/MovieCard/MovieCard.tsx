@@ -51,8 +51,9 @@ export function MovieCard({ movie }: MovieCardProps) {
         </h3>
         <div className={meta()}>
           {year && <span>{year}</span>}
-          <span aria-label={`Rated ${movie.voteAverage.toFixed(1)} out of 10`}>
-            ★ {movie.voteAverage.toFixed(1)}
+          <span aria-hidden="true">★ {movie.voteAverage.toFixed(1)}</span>
+          <span className="sr-only">
+            Rated {movie.voteAverage.toFixed(1)} out of 10
           </span>
         </div>
       </div>

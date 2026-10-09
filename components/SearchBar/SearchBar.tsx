@@ -80,7 +80,7 @@ export function SearchBar({ initialQuery }: SearchBarProps) {
         autoComplete="off"
         aria-describedby="movie-search-hint"
         placeholder="Search for a movie…"
-        className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted"
       />
       <span id="movie-search-hint" className="sr-only">
         Results update as you type. Press Enter to search immediately.
@@ -90,10 +90,10 @@ export function SearchBar({ initialQuery }: SearchBarProps) {
         type="submit"
         aria-disabled={shouldDisableSearch}
         className={cn(
-          "rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
+          "rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white",
           {
             "cursor-not-allowed opacity-50": shouldDisableSearch,
-            "hover:bg-brand-500": !shouldDisableSearch,
+            "cursor-pointer hover:brightness-90": !shouldDisableSearch,
           },
         )}
       >

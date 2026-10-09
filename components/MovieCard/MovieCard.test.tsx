@@ -23,4 +23,25 @@ describe("MovieCard", () => {
     expect(screen.getByText("★ 8.1")).toBeInTheDocument();
     expect(screen.getByText("2024")).toBeInTheDocument();
   });
+
+  it("links to the movie's detail page", () => {
+    render(
+      <MovieCard
+        movie={{
+          id: 42,
+          title: "Linked Movie",
+          overview: null,
+          posterPath: null,
+          backdropPath: null,
+          voteAverage: 7,
+          releaseDate: null,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("link", { name: "Linked Movie" })).toHaveAttribute(
+      "href",
+      "/movies/42",
+    );
+  });
 });

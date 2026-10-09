@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { ApiError, getMovieDetails } from "~/lib/api";
 import { formatRuntime } from "~/lib/utils";
 import { movieIdSchema } from "~/lib/schemas";
+import { TrailerBoundary, TrailerSkeleton } from "~/components/Trailer";
+import { Suspense } from "react";
+import Trailer from "~/components/Trailer/Trailer";
 
 interface MoviePageProps {
   params: Promise<{ id: string }>;
@@ -53,7 +56,6 @@ export default async function MoviePage({ params }: MoviePageProps) {
             No backdrop available
           </div>
         )}
-
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="relative aspect-2/3 w-full max-w-60 shrink-0 overflow-hidden rounded-lg border border-border bg-surface">
             {movie.posterPath ? (
@@ -91,8 +93,11 @@ export default async function MoviePage({ params }: MoviePageProps) {
             </p>
           </div>
         </div>
-
-        {/* Trailer goes here */}
+        <TrailerBoundary>
+          <Suspense fallback={<TrailerSkeleton />}>
+            <Trailer movieId={movie.id} title={movie.title} />
+          </Suspense>
+        </TrailerBoundary>
       </article>
     </main>
   );

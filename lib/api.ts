@@ -1,10 +1,12 @@
 import "server-only";
 
-import type { Movie } from "~/types/movie";
+import type { Movie, MovieDetail, Video } from "~/types/movie";
 
 import {
+  movieDetailSchema,
   moviesSchema,
   searchResponseSchema,
+  videosSchema,
   type SearchResponse,
 } from "./schemas";
 import z from "zod";
@@ -74,6 +76,38 @@ export async function searchMovies(
   if (!parsed.success) {
     throw new Error(
       `GET /movies/search does not match the API contract:\n${z.prettifyError(parsed.error)}`,
+    );
+  }
+
+  return parsed.data;
+}
+
+/** Full details for one movie. Throws `ApiError` (status 404) if it doesn't exist. */
+export async function getMovieDetails(id: number): Promise<MovieDetail> {
+  const body = await apiFetch<unknown>(`/movies/${id}`, { cache: "no-store" });
+
+  const parsed = movieDetailSchema.safeParse(body);
+
+  if (!parsed.success) {
+    throw new Error(
+      `GET /movies/${id} does not match the API contract:\n${z.prettifyError(parsed.error)}`,
+    );
+  }
+
+  return parsed.data;
+}
+
+/** All videos for one movie. Empty when there are none. */
+export async function getMovieVideos(id: number): Promise<Video[]> {
+  const body = await apiFetch<unknown>(`/movies/${id}/videos`, {
+    cache: "no-store",
+  });
+
+  const parsed = videosSchema.safeParse(body);
+
+  if (!parsed.success) {
+    throw new Error(
+      `GET /movies/${id}/videos does not match the API contract:\n${z.prettifyError(parsed.error)}`,
     );
   }
 

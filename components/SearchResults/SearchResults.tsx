@@ -1,5 +1,6 @@
 import { TrendingGrid } from "~/components/TrendingGrid";
 import { searchMovies } from "~/lib/api";
+import { Pagination } from "../Shared";
 
 export interface SearchResultsProps {
   query: string;
@@ -7,7 +8,7 @@ export interface SearchResultsProps {
 }
 
 export async function SearchResults({ query, page }: SearchResultsProps) {
-  const { totalResults, results } = await searchMovies(query, page);
+  const { totalResults, results, totalPages } = await searchMovies(query, page);
 
   return (
     <section className="flex flex-col gap-4">
@@ -28,6 +29,12 @@ export async function SearchResults({ query, page }: SearchResultsProps) {
           </p>
         </>
       )}
+      <Pagination
+        query={query}
+        page={page}
+        totalPages={totalPages}
+        totalResults={totalResults}
+      />
     </section>
   );
 }

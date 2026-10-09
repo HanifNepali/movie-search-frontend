@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import z from "zod";
+import { badRequest, serviceUnavailable } from "~/app/api/lib/errors";
 
 import catalog from "~/app/api/mock/v1/_fixtures/catalog.json";
 import { searchRequestSchema } from "~/lib/schemas";
@@ -20,14 +21,8 @@ export async function GET(request: NextRequest) {
   // Check if the parsed result is valid;
   // if not, return a 400 Bad Request response with details of the validation errors
   if (!parsed.success) {
-    return NextResponse.json(
-      {
-        type: "about:blank",
-        title: "Invalid request",
-        status: 400,
-        detail: z.prettifyError(parsed.error) ?? "The request is invalid.",
-      },
-      { status: 400, headers: { "Content-Type": "application/problem+json" } },
+    return badRequest(
+      z.prettifyError(parsed.error) ?? "The request is invalid.",
     );
   }
 
@@ -39,15 +34,7 @@ export async function GET(request: NextRequest) {
   // Handle special cases for the query parameter
   // Case 1: If the query is "error", return a 503 Service Unavailable response
   if (normalizedQuery === "error") {
-    return NextResponse.json(
-      {
-        type: "about:blank",
-        title: "Service unavailable",
-        status: 503,
-        detail: "The upstream movie service did not respond.",
-      },
-      { status: 503, headers: { "Content-Type": "application/problem+json" } },
-    );
+    return serviceUnavailable("The upstream movie service did not respond.");
   }
 
   // Case 2: If the query is "slow", introduce an artificial delay to simulate a slow response

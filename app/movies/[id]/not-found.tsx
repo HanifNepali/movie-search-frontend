@@ -7,8 +7,8 @@ export default function MovieNotFound() {
         Movie not found
       </h1>
       <p className="text-sm text-muted">
-        We couldn&apos;t find a movie with that ID. It may have been removed, or
-        the link may be wrong.
+        We couldn&apos;t find the specific movie you are looking for. It may
+        have been removed, or the link may be wrong.
       </p>
       <Link
         href="/"

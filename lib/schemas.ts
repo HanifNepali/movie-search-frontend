@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { Movie } from "~/types/movie";
+import type { Movie, MovieDetail, Video } from "~/types/movie";
 
 /** Caps pagination at 500 pages to mimic TMDB */
 export const MAX_PAGE = 500;
@@ -52,3 +52,21 @@ export const searchParamsSchema = z.object({
   query: z.string().trim().catch(""),
   page: z.coerce.number().int().min(1).max(MAX_PAGE).catch(1),
 });
+
+export const movieDetailSchema: z.ZodType<MovieDetail> = movieFields.extend({
+  runtime: z.number().int().nullable(),
+  tagline: z.string().nullable(),
+  genres: z.array(z.string()),
+});
+
+export const videosSchema: z.ZodType<Video[]> = z.array(
+  z.object({
+    key: z.string(),
+    name: z.string(),
+    site: z.string(),
+    type: z.string(),
+  }),
+);
+
+/** A movie id from a URL or request: a positive whole number. */
+export const movieIdSchema = z.coerce.number().int().positive();

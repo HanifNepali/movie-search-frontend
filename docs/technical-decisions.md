@@ -25,10 +25,6 @@ The assignment splits tasks into tiers, P0 to P3. I worked through them in order
 - **TV and series search.** It needs new endpoints, a new contract and new UI, so it would need some more time.
 - **Caching and revalidation.** Every request uses `cache: "no-store"`. The caching and revalidation would need a policy (how stale are results allowed to be?) to be configured. Debouncing was done because it directly reduces request volume.
 
-## Alternatives considered
-
-**Client-state search with `AbortController`.** I built this and then removed it. It does give you real request cancellation, but the results can't be shared, Back and Forward stop working, the pagination state gets split away from the query, and you need a second data path (a proxy route, since `lib/api.ts` is `server-only`).
-
 ## Decisions
 
 ### Showing "Trending Movies" when the query is empty

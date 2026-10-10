@@ -1,10 +1,6 @@
-import { Suspense } from "react";
 import { SearchBar } from "~/components/SearchBar";
-import {
-  SearchResults,
-  SearchResultsBoundary,
-} from "~/components/SearchResults";
-import { GridSkeleton } from "~/components/Shared/GridSkeleton";
+import { SearchResultsBoundary } from "~/components/SearchResults";
+import { SearchResults } from "~/components/SearchResults/SearchResults";
 import { TrendingGrid } from "~/components/TrendingGrid";
 import { getTrendingMovies } from "~/lib/api";
 import { searchParamsSchema } from "~/lib/schemas";
@@ -42,9 +38,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </section>
       ) : (
         <SearchResultsBoundary>
-          <Suspense fallback={<GridSkeleton />}>
-            <SearchResults query={query} page={page} />
-          </Suspense>
+          <SearchResults query={query} page={page} />
         </SearchResultsBoundary>
       )}
     </main>

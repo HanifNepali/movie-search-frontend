@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ApiError, getMovieDetails } from "~/lib/api";
@@ -8,6 +7,7 @@ import { movieIdSchema } from "~/lib/schemas";
 import { TrailerBoundary, TrailerSkeleton } from "~/components/Trailer";
 import { Suspense } from "react";
 import Trailer from "~/components/Trailer/Trailer";
+import { BackButton } from "~/components/Shared";
 
 interface MoviePageProps {
   params: Promise<{ id: string }>;
@@ -32,12 +32,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10">
-      <Link
-        href="/"
-        className="w-fit text-sm text-brand-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
-      >
-        Back to search
-      </Link>
+      <BackButton />
 
       <article className="flex flex-col gap-8">
         {movie.backdropPath ? (

@@ -40,6 +40,7 @@ export default function MovieError({
         href="/"
         className="text-sm text-brand-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
       >
+        <span aria-hidden="true">←</span>
         Back to search
       </Link>
     </main>

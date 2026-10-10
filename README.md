@@ -4,8 +4,8 @@ A Next.js movie search app built for the coding challenge. It shows trending mov
 
 ## Tasks completion
 
-P0-P3 tasks have been completed
-P4 has been partially implemented i.e debounced search query.
+- P0-P2 tasks have been fully completed
+- P3 is partially complete i.e debounced search query has been implemented.
 
 ## Features
 

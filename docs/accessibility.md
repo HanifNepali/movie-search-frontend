@@ -44,3 +44,9 @@ Native and semantic elements are used wherever possible (`<a>`, `<button>`, `<in
 ## Animation
 
 - Using `motion-safe:animate-pulse` ensures the animation only plays if the user hasn't enabled prefers-reduced-motion
+
+## Announcements
+
+- **Empty search results** are announced ("No movies found for …") through a live region, `LiveAnnouncement`, which renders empty and fills in its text shortly after mounting.
+- **Loading is announced by the search form**, whose `role="status"` region stays mounted and says "Searching…" while a search is pending.
+- **Skeleton loaders are not announced.** They exist only for the length of a request, which is usually short-lived and so are unreliable in screen readers. Therefore they contain plain visually hidden text and no live announcements.

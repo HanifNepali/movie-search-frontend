@@ -12,6 +12,7 @@ Components are server components by default. A component gets `"use client"` onl
 | **Client** | **`SearchBar`**                                                        | Input state, debounce timer, `useTransition`, `router.push` / `router.replace` |
 | **Client** | **`SearchResultsBoundary`**, **`TrailerBoundary`** and their fallbacks | Error boundaries need client React, and "Try again" calls `router.refresh()`   |
 | **Client** | **`error.tsx`** files                                                  | Required by Next.js                                                            |
+| **Client** | **`BackButton`**                                                       | router.back() needs the browser’s history.                                     |
 
 `lib/api.ts` is `server-only`, so if a client component imports it, the build fails.
 
@@ -31,10 +32,6 @@ Server components passed as `children` stay on the server even when a client com
 
 ```tsx
 <SearchResultsBoundary>
-  {" "}
-  {/* client */}
-  <Suspense fallback={<GridSkeleton />}>
-    <SearchResults query={query} page={page} /> {/* server, async */}
-  </Suspense>
+  <SearchResults query={query} page={page} />
 </SearchResultsBoundary>
 ```

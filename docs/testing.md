@@ -19,7 +19,7 @@ pnpm lint && pnpm typecheck && pnpm test # all checks
 | Debounce           | `hooks/useDebounce.test.ts`                        | Value updates only after the delay, and the delay restarts on each change                                      |
 | `Pagination`       | `components/Shared/Pagination/Pagination.test.tsx` | Current page, Previous and Next links, the 500-page ceiling, hidden when there is nothing to page              |
 | `SearchBar`        | `components/SearchBar/SearchBar.test.tsx`          | Disabled while empty, debounced `replace`, immediate `push` on submit, sync on Back and Forward                |
-| `SearchResults`    | `components/SearchResults/SearchResults.test.tsx`  | Results with pagination, the empty state                                                                       |
+| `SearchResults`    | `components/SearchResults/SearchResults.test.tsx`  | Starts a single request for the query and page. The grid and the pagination are tested as separate functions   |
 | `Trailer`          | `components/Trailer/Trailer.test.tsx`              | Embeds the YouTube video, renders nothing when no video qualifies                                              |
 | `MovieCard`        | `components/MovieCard/MovieCard.test.tsx`          | Title, rating and year, link to the detail page                                                                |
 

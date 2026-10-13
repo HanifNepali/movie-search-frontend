@@ -23,27 +23,26 @@ Rules it follows:
 
 ### Trigger values
 
-| Endpoint                  | Request                           | Result                                                           |
-| ------------------------- | --------------------------------- | ---------------------------------------------------------------- |
-| `GET /movies/trending`    | any                               | 200, 12 movies                                                   |
-| `GET /movies/search`      | `query=the`                       | 200, 27 results over 3 pages (12, 12, 3)                         |
-|                           | `query=batman`                    | 200, a small result set on one page (matches title and overview) |
-|                           | `query=noresults`                 | 200, `totalPages: 0`, `totalResults: 0`, `results: []`           |
-|                           | `query=slow`                      | 200 after about 3 seconds, serves the `batman` results           |
-|                           | `query=error`                     | 503 `problem+json`                                               |
-|                           | missing, empty or blank `query`   | 400 `problem+json`                                               |
-|                           | `page=0`, `page=501`, `page=abc`  | 400 `problem+json`                                               |
-|                           | `query=batman&page=10`            | 200, `results: []`, `totalPages: 3`                              |
-| `GET /movies/{id}`        | `569094`, `155`, `27205` etc      | 200, full details                                                |
-|                           | any other id (for example `9999`) | 404 `problem+json`                                               |
-|                           | `abc`, `0`                        | 400 `problem+json`                                               |
-| `GET /movies/{id}/videos` | ids listed in `videos.json`       | 200, the listed videos                                           |
-|                           | any other id                      | 200, `[]`                                                        |
-|                           | `abc`, `0`                        | 400 `problem+json`                                               |
+| Endpoint                  | Request                           | Result                                                 |
+| ------------------------- | --------------------------------- | ------------------------------------------------------ |
+| `GET /movies/trending`    | any                               | 200, 12 movies                                         |
+| `GET /movies/search`      | `query=the`                       | 200, 27 results over 3 pages (12, 12, 3)               |
+|                           | `query=noresults`                 | 200, `totalPages: 0`, `totalResults: 0`, `results: []` |
+|                           | `query=slow`                      | 200 after about 3 seconds, serves the `batman` results |
+|                           | `query=error`                     | 503 `problem+json`                                     |
+|                           | missing, empty or blank `query`   | 400 `problem+json`                                     |
+|                           | `page=0`, `page=501`, `page=abc`  | 400 `problem+json`                                     |
+|                           | `query=batman&page=10`            | 200, `results: []`, `totalPages: 3`                    |
+| `GET /movies/{id}`        | `569094`, `155`, `27205` etc      | 200, full details                                      |
+|                           | any other id (for example `9999`) | 404 `problem+json`                                     |
+|                           | `abc`, `0`                        | 400 `problem+json`                                     |
+| `GET /movies/{id}/videos` | ids listed in `videos.json`       | 200, the listed videos                                 |
+|                           | any other id                      | 200, `[]`                                              |
+|                           | `abc`, `0`                        | 400 `problem+json`                                     |
 
 Notes on the data:
 
-- **Search is case-insensitive** and matches both the title and the overview. `noresults` isn't a special case. It's just any query that matches nothing. `slow` and `error` are explicit triggers, since the data can't produce those conditions on its own.
+- **Search is case-insensitive** and matches the title. `noresults` isn't a special case. It's just any query that matches nothing. `slow` and `error` are explicit triggers, since the data can't produce those conditions on its own.
 - **All trending movies have details and a matching entry in `videos.json`**, so every trending card leads to a complete detail page with a trailer. Some movies might not contain their details or videos.
 - **Posters are available** for almost every movie, so most cards show their posters and there is a "No poster" fallback as well incase if a poster is not available.
 

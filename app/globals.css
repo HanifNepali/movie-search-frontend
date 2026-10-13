@@ -21,6 +21,10 @@
 }
 
 @layer base {
+  /* Global focus styles */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-400);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

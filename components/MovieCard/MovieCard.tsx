@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { tv } from "tailwind-variants";
 
 import type { Movie } from "~/types/movie";
 
 const card = tv({
   slots: {
-    base: "group overflow-hidden rounded-lg border border-border bg-surface transition-colors hover:bg-surface-hover",
+    base: "group relative overflow-hidden rounded-lg border border-border bg-surface transition-colors hover:bg-surface-hover has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand-400",
     posterWrapper: "relative aspect-[2/3] w-full bg-surface",
     body: "flex flex-col gap-1 p-3",
     title: "line-clamp-1 text-sm font-medium text-foreground",
@@ -40,11 +41,19 @@ export function MovieCard({ movie }: MovieCardProps) {
         )}
       </div>
       <div className={body()}>
-        <h3 className={title()}>{movie.title}</h3>
+        <h3 className={title()}>
+          <Link
+            href={`/movies/${movie.id}`}
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
+            {movie.title}
+          </Link>
+        </h3>
         <div className={meta()}>
           {year && <span>{year}</span>}
-          <span aria-label={`Rated ${movie.voteAverage.toFixed(1)} out of 10`}>
-            ★ {movie.voteAverage.toFixed(1)}
+          <span aria-hidden="true">★ {movie.voteAverage.toFixed(1)}</span>
+          <span className="sr-only">
+            Rated {movie.voteAverage.toFixed(1)} out of 10
           </span>
         </div>
       </div>
